@@ -3,38 +3,38 @@ var gridLines = [];
 var numberGrid = [];
 var texts = [];
 
-// var sampleGrid = [[-1,2,-1,3,4,-1,5,-1,-1],
-				// [-1,-1,1,-1,-1,-1,-1,4,7],
-				// [-1,5,-1,-1,-1,9,-1,1,3],
-				// [1,7,-1,-1,6,-1,-1,5,9],
-				// [5,-1,-1,-1,-1,-1,-1,-1,2],
-				// [6,3,-1,-1,2,-1,-1,8,1],
-				// [7,1,-1,9,-1,-1,-1,2,-1],
-				// [4,8,-1,-1,-1,-1,7,-1,-1],
-				// [-1,-1,6,-1,8,5,-1,3,-1]];//EASY//5764743646
-				
-// var sampleGrid = [[-1,-1,-1,-1,-1,-1,-1,-1,-1],
-				// [-1,-1,-1,-1,-1,-1,-1,-1,-1],
-				// [-1,-1,-1,-1,-1,-1,-1,-1,-1],
-				// [-1,-1,-1,-1,-1,-1,-1,-1,-1],
-				// [-1,-1,-1,-1,-1,-1,-1,-1,-1],
-				// [-1,-1,-1,-1,-1,-1,-1,-1,-1],
-				// [-1,-1,-1,-1,-1,-1,-1,-1,-1],
-				// [-1,-1,-1,-1,-1,-1,-1,-1,-1],
-				// [-1,-1,-1,-1,-1,-1,-1,-1,-1]];
 
-// var sampleGrid = [[-1,-1,-1,2,-1,-1,-1,5,-1],
-				// [-1,-1,4,-1,-1,8,-1,7,3],
-				// [-1,-1,1,6,7,-1,-1,-1,-1],
-				// [-1,-1,2,-1,-1,-1,-1,-1,6],
-				// [8,7,-1,-1,-1,-1,-1,1,2],
-				// [1,-1,-1,-1,-1,-1,9,-1,-1],
-				// [-1,-1,-1,-1,2,9,8,-1,-1],
-				// [9,2,-1,1,-1,-1,3,-1,-1],
-				// [-1,8,-1,-1,-1,3,-1,-1,-1]];//EVIL
+var emptyGrid = [[-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				[-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				[-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				[-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				[-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				[-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				[-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				[-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				[-1,-1,-1,-1,-1,-1,-1,-1,-1]];
 
+var sampleGrid1 = [[-1,2,-1,3,4,-1,5,-1,-1],
+				[-1,-1,1,-1,-1,-1,-1,4,7],
+				[-1,5,-1,-1,-1,9,-1,1,3],
+				[1,7,-1,-1,6,-1,-1,5,9],
+				[5,-1,-1,-1,-1,-1,-1,-1,2],
+				[6,3,-1,-1,2,-1,-1,8,1],
+				[7,1,-1,9,-1,-1,-1,2,-1],
+				[4,8,-1,-1,-1,-1,7,-1,-1],
+				[-1,-1,6,-1,8,5,-1,3,-1]];//EASY//5764743646
 				
-var sampleGrid = [[8,-1,-1,-1,-1,4,9,-1,-1],
+var sampleGrid2 = [[-1,-1,-1,1,-1,-1,-1,-1,3],
+				[3,-1,8,9,-1,-1,1,6,4],
+				[4,-1,-1,-1,8,3,-1,2,-1],
+				[8,1,-1,-1,7,6,-1,-1,-1],
+				[-1,-1,-1,-1,-1,-1,-1,-1,-1],
+				[-1,-1,-1,2,1,-1,-1,8,5],
+				[-1,4,-1,7,9,-1,-1,-1,1],
+				[1,5,9,-1,-1,2,4,-1,8],
+				[2,-1,-1,-1,-1,1,-1,-1,-1]];
+
+var sampleGrid3 = [[8,-1,-1,-1,-1,4,9,-1,-1],
 				[-1,-1,-1,3,-1,-1,7,-1,-1],
 				[-1,1,-1,-1,6,-1,-1,2,-1],
 				[-1,3,4,-1,-1,9,-1,5,-1],
@@ -44,50 +44,104 @@ var sampleGrid = [[8,-1,-1,-1,-1,4,9,-1,-1],
 				[-1,-1,6,-1,-1,1,-1,-1,-1],
 				[-1,-1,7,6,-1,-1,-1,-1,2]];//HARD
 				
-// var sampleGrid = [[-1,-1,-1,-1,-1,-1,-1,-1,1],
-				// [-1,8,6,1,-1,-1,-1,3,2],
-				// [-1,-1,-1,9,-1,3,4,7,-1],
-				// [8,-1,-1,7,-1,-1,3,-1,-1],
-				// [-1,7,-1,-1,-1,-1,-1,6,-1],
-				// [-1,-1,9,-1,-1,8,-1,-1,5],
-				// [-1,2,4,3,-1,1,-1,-1,-1],
-				// [7,1,-1,-1,-1,5,6,4,-1],
-				// [3,-1,-1,-1,-1,-1,-1,-1,-1]];//HARD
+var sampleGrid4 = [[-1,-1,-1,-1,-1,-1,-1,-1,1],
+				[-1,8,6,1,-1,-1,-1,3,2],
+				[-1,-1,-1,9,-1,3,4,7,-1],
+				[8,-1,-1,7,-1,-1,3,-1,-1],
+				[-1,7,-1,-1,-1,-1,-1,6,-1],
+				[-1,-1,9,-1,-1,8,-1,-1,5],
+				[-1,2,4,3,-1,1,-1,-1,-1],
+				[7,1,-1,-1,-1,5,6,4,-1],
+				[3,-1,-1,-1,-1,-1,-1,-1,-1]];//HARD
+					
+var sampleGrid5 = [[-1,-1,-1,2,-1,-1,-1,5,-1],
+				[-1,-1,4,-1,-1,8,-1,7,3],
+				[-1,-1,1,6,7,-1,-1,-1,-1],
+				[-1,-1,2,-1,-1,-1,-1,-1,6],
+				[8,7,-1,-1,-1,-1,-1,1,2],
+				[1,-1,-1,-1,-1,-1,9,-1,-1],
+				[-1,-1,-1,-1,2,9,8,-1,-1],
+				[9,2,-1,1,-1,-1,3,-1,-1],
+				[-1,8,-1,-1,-1,3,-1,-1,-1]];//EVIL
 				
-// var sampleGrid = [[-1,-1,-1,1,-1,-1,-1,-1,3],
-				// [3,-1,8,9,-1,-1,1,6,4],
-				// [4,-1,-1,-1,8,3,-1,2,-1],
-				// [8,1,-1,-1,7,6,-1,-1,-1],
-				// [-1,-1,-1,-1,-1,-1,-1,-1,-1],
-				// [-1,-1,-1,2,1,-1,-1,8,5],
-				// [-1,4,-1,7,9,-1,-1,-1,1],
-				// [1,5,9,-1,-1,2,4,-1,8],
-				// [2,-1,-1,-1,-1,1,-1,-1,-1]];
+var puzzles = [emptyGrid,sampleGrid1,sampleGrid2,sampleGrid3,sampleGrid4,sampleGrid5];
 				
-var clueGrid = []
+var clueGrid = [];
 
 var xInc = (game.width - 100)/10;
 var yInc = (game.height - 100)/10;
 
 function preload() {
 
+	game.load.image('bg', 'assets/sky.png');
+	game.load.image('btn', 'assets/diamond.png');
 	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 	
 }
 
 function create() {
+
+	back = game.add.image(0, -400, 'bg');
+	back.scale.set(2);
 	
-	game.stage.backgroundColor = "#0079a5";
 	createGrid();
 	drawGrid();
-	// createRandomNumbers();
-	numberGrid = sampleGrid;
+	numberGrid = clone(emptyGrid);
 	createClueGrid();
 	drawNumbers();
 	
-	button = game.add.button(game.world.centerX - 95, 500, 'button', solveAndDraw, this, 2, 1, 0);
+	solveBtn = game.add.button(game.world.centerX - 30, 520, 'btn', solveAndDraw, this, 2, 1, 0);
+	puzzle1Btn = game.add.button(game.world.centerX - 300, 20, 'btn', switchPuzOne, this, 2, 1, 0);
+	puzzle2Btn = game.add.button(game.world.centerX - 250, 20, 'btn', switchPuzTwo, this, 2, 1, 0);
+	puzzle3Btn = game.add.button(game.world.centerX - 200, 20, 'btn', switchPuzThree, this, 2, 1, 0);
+	puzzle4Btn = game.add.button(game.world.centerX - 150, 20, 'btn', switchPuzFour, this, 2, 1, 0);
+	puzzle5Btn = game.add.button(game.world.centerX - 100, 20, 'btn', switchPuzFive, this, 2, 1, 0);
 	
 	
+}
+
+function switchPuzOne(){
+	switchPuzzle(1);
+	console.log("switching to puzzle 1");
+}
+
+function switchPuzTwo(){
+	switchPuzzle(2);
+	console.log("switching to puzzle 2");
+}
+
+function switchPuzThree(){
+	switchPuzzle(3);
+	console.log("switching to puzzle 3");
+}
+
+function switchPuzFour(){
+	switchPuzzle(4);
+	console.log("switching to puzzle 4");
+}
+function switchPuzFive(){
+	switchPuzzle(5);
+	console.log("switching to puzzle 5");
+}
+
+//switches what puzzle is current
+function switchPuzzle(puzNum){
+	numberGrid = clone(puzzles[puzNum]);
+	createClueGrid();
+	drawNumbers();
+}
+
+function clone (existingArray) {
+   var newObj = (existingArray instanceof Array) ? [] : {};
+   for (i in existingArray) {
+      if (i == 'clone') continue;
+      if (existingArray[i] && typeof existingArray[i] == "object") {
+         newObj[i] = clone(existingArray[i]);
+      } else {
+         newObj[i] = existingArray[i]
+      }
+   }
+   return newObj;
 }
 
 function solveAndDraw(){
@@ -105,17 +159,6 @@ function createGrid(){
 	}
 }
 
-//fills grid with different numbers
-function createRandomNumbers(){
-	for(i=0;i<gridLines.length/2;i++){
-		numberGrid[i] = []
-		for(j=0;j<gridLines.length/2;j++){
-			numberGrid[i][j] = (j+i)%9 + 1;
-		}
-	}
-}
-
-
 //initializes answer/clue grid with full 1-9 possible numbers
 function createClueGrid(){
 	for(i=0;i<(gridLines.length/2)-1;i++){
@@ -130,11 +173,13 @@ function createClueGrid(){
 
 //draw numbers in grid
 function drawNumbers(){
+	//remove previous numbers
 	if(texts!==null){
 		for(z=0;z<texts.length;z++){
 			texts[z].destroy();
 		}
 	}
+	//draw current numbers
 	for(i=1;i<gridLines.length/2;i++){
 		for(j=1;j<gridLines.length/2;j++){
 			if(numberGrid[i-1][j-1] === -1){
@@ -159,6 +204,7 @@ function drawGrid() {
 	}
 }
 
+//solve the sudoku puzzle, 1 iteration through
 function solveGrid(){
 	for(a=0;a<numberGrid.length;a++){
 		for(b=0;b<numberGrid.length;b++){
@@ -169,19 +215,21 @@ function solveGrid(){
 	}
 }
 
+//solve the clue grid 
 function solveClueGrid(){
 	for(i=0;i<numberGrid.length;i++){
 		for(j=0;j<numberGrid.length;j++){
-			solveHoriz(i,j);
-			solveVert(i,j);
-			solveNineBlock(i,j);
+			solveClueHoriz(i,j);
+			solveClueVert(i,j);
+			solveClueUnit(i,j);
 		}
 	}
-	solveBlocks();
+	solveUnits();
 
 }
 
-function solveHoriz(x,y){	
+//solve clue grid horizontally
+function solveClueHoriz(x,y){	
 	if(numberGrid[x][y]!==-1){
 		clueGrid[x][y].availableNumbers = numberGrid[x][y];
 	}
@@ -197,7 +245,8 @@ function solveHoriz(x,y){
 	}
 }
 
-function solveVert(x,y){
+//solve clue grid vertically
+function solveClueVert(x,y){
 	if(numberGrid[x][y]!==-1){
 		clueGrid[x][y].availableNumbers = numberGrid[x][y];
 	}
@@ -212,7 +261,8 @@ function solveVert(x,y){
 	}
 }
 
-function solveNineBlock(x1,y1){
+//solve 1 unit/3x3 block
+function solveClueUnit(x1,y1){
 	var xMin, yMin;
 	if(x1<3){xMin=0;}
 	else if(x1<6){xMin=3;}
@@ -232,15 +282,17 @@ function solveNineBlock(x1,y1){
 	
 }
 
-function solveBlocks(){
+//solve all 9 units of the puzzle based off the clue grid
+function solveUnits(){
 	for(i=0;i<9;i+=3){
 		for(j=0;j<9;j+=3){
-			solveBlock(i,j);
+			solveUnit(i,j);
 		}
 	}
 }
 
-function solveBlock(x,y){
+//solve 1 units of the puzzle
+function solveUnit(x,y){
 	for(m=x;m<x+3;m++){
 		for(n=y;n<y+3;n++){
 			if(numberGrid[m][n]===-1){
@@ -250,6 +302,7 @@ function solveBlock(x,y){
 	}
 }
 
+//solve 1 square of the puzzle
 function solveSquare(x1,y1){
 	var xMin, yMin;
 	if(x1<3){xMin=0;}
@@ -268,6 +321,48 @@ function solveSquare(x1,y1){
 					}
 				}
 			}
+		}
+	}
+	if(availableNumbers.length===1){
+		console.log("x1=" + y1 + " y1=" + x1 + " number=" + availableNumbers);
+		numberGrid[x1][y1] = availableNumbers[0];
+		clueGrid[x1][y1].availableNumbers = availableNumbers;
+	}
+}
+	
+function solveSquareHV(x2,y2){
+	else if(availableNumbers.length===0){
+		//check horiz/vert availableNumbers
+		// availableNumbers = clueGrid[x1][y1].availableNumbers.slice();
+		for(k=0;k<numberGrid.length;k++){
+			if(k!==y1 && numberGrid[x1][k]===-1){
+				console.log(availableNumbers.length);
+				for(c=availableNumbers.length-1;c>=0;c--){
+					if(clueGrid[x1][k].availableNumbers.includes(availableNumbers[c])){
+						availableNumbers.splice(c,1);
+					}
+				}
+			}
+			
+		}
+	}
+	if(availableNumbers.length===1){
+		console.log("x1=" + y1 + " y1=" + x1 + " number=" + availableNumbers);
+		numberGrid[x1][y1] = availableNumbers[0];
+		clueGrid[x1][y1].availableNumbers = availableNumbers;
+	}
+	else if(availableNumbers.length===0){
+		//check horiz/vert availableNumbers
+		// availableNumbers = clueGrid[x1][y1].availableNumbers.slice();
+		for(k=0;k<numberGrid.length;k++){
+			if(k!==x1 && numberGrid[k][y1]===-1){
+				for(c=availableNumbers.length-1;c>=0;c--){
+					if(clueGrid[k][y1].availableNumbers.includes(availableNumbers[c])){
+						availableNumbers.splice(c,1);
+					}
+				}
+			}
+			
 		}
 	}
 	if(availableNumbers.length===1){
