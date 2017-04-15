@@ -331,45 +331,45 @@ function solveSquare(x1,y1){
 }
 	
 function solveSquareHV(x2,y2){
-	else if(availableNumbers.length===0){
-		//check horiz/vert availableNumbers
-		// availableNumbers = clueGrid[x1][y1].availableNumbers.slice();
-		for(k=0;k<numberGrid.length;k++){
-			if(k!==y1 && numberGrid[x1][k]===-1){
-				console.log(availableNumbers.length);
-				for(c=availableNumbers.length-1;c>=0;c--){
-					if(clueGrid[x1][k].availableNumbers.includes(availableNumbers[c])){
-						availableNumbers.splice(c,1);
-					}
+
+	//check horiz/vert availableNumbers
+	// availableNumbers = clueGrid[x1][y1].availableNumbers.slice();
+	for(k=0;k<numberGrid.length;k++){
+		if(k!==y1 && numberGrid[x1][k]===-1){
+			console.log(availableNumbers.length);
+			for(c=availableNumbers.length-1;c>=0;c--){
+				if(clueGrid[x1][k].availableNumbers.includes(availableNumbers[c])){
+					availableNumbers.splice(c,1);
 				}
 			}
-			
 		}
+		
 	}
+	
 	if(availableNumbers.length===1){
 		console.log("x1=" + y1 + " y1=" + x1 + " number=" + availableNumbers);
 		numberGrid[x1][y1] = availableNumbers[0];
 		clueGrid[x1][y1].availableNumbers = availableNumbers;
 	}
-	else if(availableNumbers.length===0){
-		//check horiz/vert availableNumbers
-		// availableNumbers = clueGrid[x1][y1].availableNumbers.slice();
-		for(k=0;k<numberGrid.length;k++){
-			if(k!==x1 && numberGrid[k][y1]===-1){
-				for(c=availableNumbers.length-1;c>=0;c--){
-					if(clueGrid[k][y1].availableNumbers.includes(availableNumbers[c])){
-						availableNumbers.splice(c,1);
-					}
-				}
-			}
-			
-		}
-	}
-	if(availableNumbers.length===1){
-		console.log("x1=" + y1 + " y1=" + x1 + " number=" + availableNumbers);
-		numberGrid[x1][y1] = availableNumbers[0];
-		clueGrid[x1][y1].availableNumbers = availableNumbers;
-	}
+	
+	// //check horiz/vert availableNumbers
+	// // availableNumbers = clueGrid[x1][y1].availableNumbers.slice();
+	// for(k=0;k<numberGrid.length;k++){
+		// if(k!==x1 && numberGrid[k][y1]===-1){
+			// for(c=availableNumbers.length-1;c>=0;c--){
+				// if(clueGrid[k][y1].availableNumbers.includes(availableNumbers[c])){
+					// availableNumbers.splice(c,1);
+				// }
+			// }
+		// }
+		
+	// }
+	
+	// if(availableNumbers.length===1){
+		// console.log("x1=" + y1 + " y1=" + x1 + " number=" + availableNumbers);
+		// numberGrid[x1][y1] = availableNumbers[0];
+		// clueGrid[x1][y1].availableNumbers = availableNumbers;
+	// }
 }
 
 function update() {
