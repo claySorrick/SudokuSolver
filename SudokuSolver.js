@@ -2,6 +2,8 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 var gridLines = [];
 var numberGrid = [];
 var texts = [];
+var clickDown = false;
+var editMode = false;
 
 
 var emptyGrid = [[-1,-1,-1,-1,-1,-1,-1,-1,-1],
@@ -99,32 +101,44 @@ function create() {
 	puzzle3Btn = game.add.button(game.world.centerX - 200, 20, 'btn', switchPuzThree, this, 2, 1, 0);
 	puzzle4Btn = game.add.button(game.world.centerX - 150, 20, 'btn', switchPuzFour, this, 2, 1, 0);
 	puzzle5Btn = game.add.button(game.world.centerX - 100, 20, 'btn', switchPuzFive, this, 2, 1, 0);
+	editBtn = game.add.button(game.world.centerX, 20, 'btn', switchPuzEdit, this, 2, 1, 0);
 	
 	
 }
 
 function switchPuzOne(){
 	switchPuzzle(1);
+	editMode = false;
 	console.log("switching to puzzle 1");
 }
 
 function switchPuzTwo(){
 	switchPuzzle(2);
+	editMode = false;
 	console.log("switching to puzzle 2");
 }
 
 function switchPuzThree(){
 	switchPuzzle(3);
+	editMode = false;
 	console.log("switching to puzzle 3");
 }
 
 function switchPuzFour(){
 	switchPuzzle(4);
+	editMode = false;
 	console.log("switching to puzzle 4");
 }
 function switchPuzFive(){
 	switchPuzzle(5);
+	editMode = false;
 	console.log("switching to puzzle 5");
+}
+
+function switchPuzEdit(){
+	switchPuzzle(0);
+	editMode = true;
+	console.log("switching to edit puzzle");
 }
 
 //switches what puzzle is current
@@ -390,6 +404,35 @@ function solveSquareHV(x2,y2){
 }
 
 function update() {
+	if(editMode){
+		if(game.input.activePointer.isDown){
+			editPuzzle();
+			clickDown = true;
+		}
+		else{
+			clickDown = false;
+		}
+	}
+}
+
+function editPuzzle(){
+	var x = game.input.mousePointer.x;
+	var y = game.input.mousePointer.y;
+	if(!clickDown && 70<x && x<700 && 50<y && y<500){
+		x = Math.round((x - 35) / 70);
+		y = Math.round((y - 25) / 50);
+		console.log(x + " " + y);
+		if(numberGrid[y-1][x-1]===-1){
+			numberGrid[y-1][x-1] = 1;
+		}
+		else if(numberGrid[y-1][x-1]<9){
+			numberGrid[y-1][x-1]++;
+		}
+		else{
+			numberGrid[y-1][x-1] = -1;
+		}
+		drawNumbers();
+	}
 }
 
 function render() {
