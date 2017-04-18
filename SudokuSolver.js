@@ -68,21 +68,24 @@ var puzzles = [emptyGrid,sampleGrid1,sampleGrid2,sampleGrid3,sampleGrid4,sampleG
 				
 var clueGrid = [];
 
+var gridChange = false;
+
 var xInc = (game.width - 100)/10;
 var yInc = (game.height - 100)/10;
 
 function preload() {
 
-	game.load.image('bg', 'assets/sky.png');
-	game.load.image('btn', 'assets/diamond.png');
-	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+	// game.load.image('bg', 'assets/sky.png');
+	// game.load.image('btn', 'assets/diamond.png');
+	game.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 	
 }
 
 function create() {
 
-	back = game.add.image(0, -400, 'bg');
-	back.scale.set(2);
+	// back = game.add.image(0, -400, 'bg');
+	// back.scale.set(2);
+	game.stage.backgroundColor = "#4488AA";
 	
 	createGrid();
 	drawGrid();
@@ -148,7 +151,17 @@ function solveAndDraw(){
 	solveClueGrid();
 	solveGrid();
 	console.log(clueGrid);
+	if(gridChange === false){
+		for(i=0;i<numberGrid.length;i++){
+			for(j=0;j<numberGrid.length;j++){
+				if(numberGrid[i][j]===-1){
+					solveSquareHV(i,j);
+				}
+			}
+		}
+	}
 	drawNumbers();
+	gridChange=false;
 }
 
 //initialize grid lines array
@@ -231,7 +244,7 @@ function solveClueGrid(){
 //solve clue grid horizontally
 function solveClueHoriz(x,y){	
 	if(numberGrid[x][y]!==-1){
-		clueGrid[x][y].availableNumbers = numberGrid[x][y];
+		clueGrid[x][y].availableNumbers = new Array(numberGrid[x][y]);
 	}
 	else{
 		for(k=0;k<numberGrid.length;k++){
@@ -248,7 +261,7 @@ function solveClueHoriz(x,y){
 //solve clue grid vertically
 function solveClueVert(x,y){
 	if(numberGrid[x][y]!==-1){
-		clueGrid[x][y].availableNumbers = numberGrid[x][y];
+		clueGrid[x][y].availableNumbers = new Array(numberGrid[x][y]);
 	}
 	else{
 		for(k=0;k<numberGrid.length;k++){
@@ -326,19 +339,19 @@ function solveSquare(x1,y1){
 	if(availableNumbers.length===1){
 		console.log("x1=" + y1 + " y1=" + x1 + " number=" + availableNumbers);
 		numberGrid[x1][y1] = availableNumbers[0];
-		clueGrid[x1][y1].availableNumbers = availableNumbers;
+		clueGrid[x1][y1].availableNumbers = availableNumbers.slice();
+		gridChange = true;
 	}
 }
 	
 function solveSquareHV(x2,y2){
 
 	//check horiz/vert availableNumbers
-	// availableNumbers = clueGrid[x1][y1].availableNumbers.slice();
+	availableNumbers = clueGrid[x2][y2].availableNumbers.slice();
 	for(k=0;k<numberGrid.length;k++){
-		if(k!==y1 && numberGrid[x1][k]===-1){
-			console.log(availableNumbers.length);
+		if(k!==y2 ){//&& numberGrid[x2][k]===-1){
 			for(c=availableNumbers.length-1;c>=0;c--){
-				if(clueGrid[x1][k].availableNumbers.includes(availableNumbers[c])){
+				if(clueGrid[x2][k].availableNumbers.includes(availableNumbers[c])){
 					availableNumbers.splice(c,1);
 				}
 			}
@@ -347,29 +360,33 @@ function solveSquareHV(x2,y2){
 	}
 	
 	if(availableNumbers.length===1){
-		console.log("x1=" + y1 + " y1=" + x1 + " number=" + availableNumbers);
-		numberGrid[x1][y1] = availableNumbers[0];
-		clueGrid[x1][y1].availableNumbers = availableNumbers;
+		// console.log("x1=" + y1 + " y1=" + x1 + " number=" + availableNumbers);
+		numberGrid[x2][y2] = availableNumbers[0];
+		clueGrid[x2][y2].availableNumbers = availableNumbers.slice();
+		gridChange = true;
 	}
 	
-	// //check horiz/vert availableNumbers
-	// // availableNumbers = clueGrid[x1][y1].availableNumbers.slice();
-	// for(k=0;k<numberGrid.length;k++){
-		// if(k!==x1 && numberGrid[k][y1]===-1){
-			// for(c=availableNumbers.length-1;c>=0;c--){
-				// if(clueGrid[k][y1].availableNumbers.includes(availableNumbers[c])){
-					// availableNumbers.splice(c,1);
-				// }
-			// }
-		// }
+	//check horiz/vert availableNumbers
+	if(gridChange===false){
+		availableNumbers = clueGrid[x2][y2].availableNumbers.slice();
+		for(k=0;k<numberGrid.length;k++){
+			if(k!==x2 ){//&& numberGrid[k][y2]===-1){
+				for(c=availableNumbers.length-1;c>=0;c--){
+					if(clueGrid[k][y2].availableNumbers.includes(availableNumbers[c])){
+						availableNumbers.splice(c,1);
+					}
+				}
+			}
+			
+		}
 		
-	// }
-	
-	// if(availableNumbers.length===1){
-		// console.log("x1=" + y1 + " y1=" + x1 + " number=" + availableNumbers);
-		// numberGrid[x1][y1] = availableNumbers[0];
-		// clueGrid[x1][y1].availableNumbers = availableNumbers;
-	// }
+		if(availableNumbers.length===1){
+			// console.log("x1=" + y1 + " y1=" + x1 + " number=" + availableNumbers);
+			numberGrid[x2][y2] = availableNumbers[0];
+			clueGrid[x2][y2].availableNumbers = availableNumbers.slice();
+			gridChange = true;
+		}
+	}
 }
 
 function update() {
