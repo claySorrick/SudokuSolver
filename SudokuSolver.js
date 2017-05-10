@@ -1,4 +1,6 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var WIDTH = 800;
+var HEIGHT = 600;
+var game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 var gridLines = [];
 var numberGrid = [];
 var texts = [];
@@ -405,19 +407,20 @@ function solveSquareHV(x2,y2){
 
 function update() {
 	if(editMode){
-		if(game.input.activePointer.isDown){
+		if(game.input.activePointer.isDown && !clickDown){
 			editPuzzle();
 			clickDown = true;
 		}
-		else{
+		else if(!game.input.activePointer.isDown && clickDown){
 			clickDown = false;
 		}
 	}
 }
 
+//increases a number in the empty sudoku puzzle
 function editPuzzle(){
-	var x = game.input.mousePointer.x;
-	var y = game.input.mousePointer.y;
+	var x = game.input.activePointer.x;
+	var y = game.input.activePointer.y;
 	if(!clickDown && 70<x && x<700 && 50<y && y<500){
 		x = Math.round((x - 35) / 70);
 		y = Math.round((y - 25) / 50);
