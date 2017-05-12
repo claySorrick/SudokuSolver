@@ -1,6 +1,10 @@
 var WIDTH = 800;
 var HEIGHT = 600;
 var game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var GRID_BOTTOM = 552;
+var GRID_TOP = 48;
+var GRID_LEFT = 40;
+var GRID_RIGHT = 760;
 var gridLines = [];
 var numberGrid = [];
 var texts = [];
@@ -74,8 +78,8 @@ var clueGrid = [];
 
 var gridChange = false;
 
-var xInc = (game.width - 100)/10;
-var yInc = (game.height - 100)/10;
+var xInc = (GRID_RIGHT-GRID_LEFT)/9;
+var yInc = (GRID_BOTTOM-GRID_TOP)/9;
 
 function preload() {
 
@@ -97,13 +101,13 @@ function create() {
 	createClueGrid();
 	drawNumbers();
 	
-	solveBtn = game.add.button(game.world.centerX - 30, 520, 'btn', solveAndDraw, this, 2, 1, 0);
-	puzzle1Btn = game.add.button(game.world.centerX - 300, 20, 'btn', switchPuzOne, this, 2, 1, 0);
-	puzzle2Btn = game.add.button(game.world.centerX - 250, 20, 'btn', switchPuzTwo, this, 2, 1, 0);
-	puzzle3Btn = game.add.button(game.world.centerX - 200, 20, 'btn', switchPuzThree, this, 2, 1, 0);
-	puzzle4Btn = game.add.button(game.world.centerX - 150, 20, 'btn', switchPuzFour, this, 2, 1, 0);
-	puzzle5Btn = game.add.button(game.world.centerX - 100, 20, 'btn', switchPuzFive, this, 2, 1, 0);
-	editBtn = game.add.button(game.world.centerX, 20, 'btn', switchPuzEdit, this, 2, 1, 0);
+	solveBtn = game.add.button(game.world.centerX - 30, 560, 'btn', solveAndDraw, this, 2, 1, 0);
+	puzzle1Btn = game.add.button(game.world.centerX - 300, 10, 'btn', switchPuzOne, this, 2, 1, 0);
+	puzzle2Btn = game.add.button(game.world.centerX - 250, 10, 'btn', switchPuzTwo, this, 2, 1, 0);
+	puzzle3Btn = game.add.button(game.world.centerX - 200, 10, 'btn', switchPuzThree, this, 2, 1, 0);
+	puzzle4Btn = game.add.button(game.world.centerX - 150, 10, 'btn', switchPuzFour, this, 2, 1, 0);
+	puzzle5Btn = game.add.button(game.world.centerX - 100, 10, 'btn', switchPuzFive, this, 2, 1, 0);
+	editBtn = game.add.button(game.world.centerX, 10, 'btn', switchPuzEdit, this, 2, 1, 0);
 	
 	
 }
@@ -183,8 +187,8 @@ function solveAndDraw(){
 //initialize grid lines array
 function createGrid(){
 	for (i=1;i<=10;i++){
-		gridLines.push(new Phaser.Line(xInc*i, 50, xInc*i, game.height-100));
-		gridLines.push(new Phaser.Line(70, yInc*i, game.width-100, yInc*i));
+		gridLines.push(new Phaser.Line(xInc*i-xInc/2, GRID_TOP, xInc*i-xInc/2, GRID_BOTTOM));
+		gridLines.push(new Phaser.Line(GRID_LEFT, yInc*i-8, GRID_RIGHT, yInc*i-8));
 	}
 }
 
@@ -212,10 +216,10 @@ function drawNumbers(){
 	for(i=1;i<gridLines.length/2;i++){
 		for(j=1;j<gridLines.length/2;j++){
 			if(numberGrid[i-1][j-1] === -1){
-				texts[(i-1)*9+(j-1)] = game.add.text(xInc*j+27, yInc*i+12, "-");
+				texts[(i-1)*9+(j-1)] = game.add.text((xInc*j)-5, (yInc*i)+5, "-");
 			}
 			else{
-				texts[(i-1)*9+(j-1)] = game.add.text(xInc*j+27, yInc*i+12, numberGrid[i-1][j-1]);
+				texts[(i-1)*9+(j-1)] = game.add.text((xInc*j)-5, (yInc*i)+5, numberGrid[i-1][j-1]);
 			}
 		}
 	}
@@ -421,9 +425,10 @@ function update() {
 function editPuzzle(){
 	var x = game.input.activePointer.x;
 	var y = game.input.activePointer.y;
-	if(!clickDown && 70<x && x<700 && 50<y && y<500){
-		x = Math.round((x - 35) / 70);
-		y = Math.round((y - 25) / 50);
+	if(!clickDown && GRID_LEFT<x && x<GRID_RIGHT && GRID_TOP<y && y<GRID_BOTTOM){
+		console.log(x);
+		x = Math.round((x) / xInc);
+		y = Math.round((y-GRID_LEFT/2) / yInc);
 		console.log(x + " " + y);
 		if(numberGrid[y-1][x-1]===-1){
 			numberGrid[y-1][x-1] = 1;
